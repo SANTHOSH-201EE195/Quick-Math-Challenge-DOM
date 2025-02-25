@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Math Challenge</title>
+    <style>
+        /* General body styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+            padding: 20px;
+        }
+
+        /* Game container */
+        #main {
+            background: rgba(255, 255, 255, 0.2);
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Title */
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        /* Math problem container */
+        #userInteraction {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .box {
+            background-color: #ff7e5f;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Input box */
+        #inputBox {
+            padding: 10px;
+            font-size: 18px;
+            width: 80px;
+            text-align: center;
+            border: 2px solid white;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            color: #333;
+            font-weight: bold;
+        }
+
+        #inputBox:focus {
+            outline: none;
+            border-color: #ff7e5f;
+            background: white;
+        }
+
+        /* Buttons */
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #regen {
+            background: #ff7e5f;
+            color: white;
+        }
+
+        #submit {
+            background: #ff7e5f;
+            color: white;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Score display */
+        #score {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            background: #ff7e5f;
+            color: white;
+            border-radius: 5px;
+            display: inline-block;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quick Math Challenge</h1>
+
+    <div id="main">
+        <div id="userInteraction">
+            <h2 class="box" id="num1">0</h2>
+            <p>➕</p>
+            <h2 class="box" id="num2">0</h2>
+            <p>🟰</p>
+            <input type="text" id="inputBox" placeholder="Enter answer">
+        </div>
+
+        <div id="manipulation">
+            <button onclick="reGen();" id="regen">Regenerate</button>
+            <button onclick="submit()" id="submit">Submit</button>
+        </div>
+
+        <p id="score">Score: 0</p>
+    </div>
+
+    <script>
+        let Result = 0; // Global variable for correct answer
+        let userScore = 0; // Global score counter
+
+        function reGen() {
+            let num1 = document.getElementById("num1");
+            let num2 = document.getElementById("num2");
+
+            let RandomNum1 = Math.floor(Math.random() * 100) + 1;
+            let RandomNum2 = Math.floor(Math.random() * 100) + 1;
+
+            num1.innerText = RandomNum1;
+            num2.innerText = RandomNum2;
+
+            Result = RandomNum1 + RandomNum2; // Store correct answer globally
+            document.getElementById("inputBox").value = ""; // Clear input box
+        }
+
+        function submit() {
+            let userValue = Number(document.getElementById("inputBox").value); // Convert to number
+            let scoreDisplay = document.getElementById("score");
+
+            if (userValue === Result) {
+                userScore++;  // Increase score
+                scoreDisplay.innerText ="You Made It!" + " Score: " + userScore;
+                reGen(); 
+            } else {
+                scoreDisplay.innerText = "Incorrect! Try Again.";
+            }
+        }
+
+        reGen(); // Generate numbers on page load
+    </script>
+
+</body>
+</html>
